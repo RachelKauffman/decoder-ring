@@ -5,47 +5,37 @@
 
 const caesarModule = (function () {
   // you can add any code you want within this function scope
-  let input = "zebra magazine";
-  let shift = 3;
-  caesar(input, shift)
-
   function caesar(input, shift, encode = true) {
-    if(shift === 0 || shift > 25 || shift < -25 || !shift){
-      return false;
-    }
-    
-    if (encode === false) {
-       shift = shift * -1;
-    }
-
-    const alph = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+    if(shift === 0 || shift > 25 || shift < -25 || !shift) return false;
+    if (!encode) shift *= -1;
+   
+const alph = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
     let result = "";
-    let newInput = input.toLowerCase();
+    input = input.toLowerCase()
     let newIndex;
-  
-   for (let i = 0; i < newInput.length; i++){
-    let currentLetter = newInput[i];
-    if (!alph.includes(currentLetter)) {
-      result += currentLetter;
-      continue;
-    }
 
-    let letterIndex = alph.indexOf(currentLetter);
-    newIndex = letterIndex + shift;
-    if (newIndex > 25) {
-      newIndex = newIndex - 26;
-    } 
-    if (newIndex < 0) {
-      newIndex = newIndex + 26;
+    for (let i = 0; i < input.length; i++) {
+      let currentLetter = input[i];
+      if (!alph.includes(currentLetter)) {
+        result += currentLetter;
+        continue;
+      }
+
+      let letterIndex = alph.indexOf(currentLetter);
+      newIndex = letterIndex + shift;
+      if (newIndex > 25) {
+        newIndex = newIndex - 26;
+      }
+      if (newIndex < 0) {
+        newIndex = newIndex + 26;
+      }
+      result += alph[newIndex];
     }
-    result += alph[newIndex];
-   }
-   return result;
+    return result;
   }
-    return {
+  return {
     caesar,
   };
-})
-();
+})();
 
 module.exports = { caesar: caesarModule.caesar };
