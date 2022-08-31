@@ -9,7 +9,7 @@ const polybiusModule = (function () {
   function polybius(input, encode = true) {
     const alph = {
       a:"11", b:"21", c:"31", d:"41", e:"51", f:"12", g:"22", h:"32", i:"42",j:"42", k:"52", l:"13", m:"23", n:"33",
-      o:"43", p:"53", q:"14", r:"24", s:"34", t:"44", u:"54", v:"15", w:"25", x:"35", y:"45", z:"55"
+      o:"43", p:"53", q:"14", r:"24", s:"34", t:"44", u:"54", v:"15", w:"25", x:"35", y:"45", z:"55", [" "]: " "
     };
 
     const decode = {
@@ -18,31 +18,17 @@ const polybiusModule = (function () {
     };
   
     let result = ""
-    input.split(""); //t,e,s,t
-    input.toLowerCase()
+    input.toLowerCase() //t,e,s,t
     
-    if (encode) {
-    for (let i = 0; i < input.length; i++){
-      //set variable for each character input
-      let currentLetter = input[i];
-      //if character is a space add it to the result variable
-      if (currentLetter === " ") {
-        result += currentLetter;
-      };
-      if (currentLetter in alph) {
-        //if the charactter is in alph add the value to result variable
-        result += alph[currentLetter];
-      }
-    }
-  }
-    
-  if (!encode) {
+   if (encode) 
+    return input.split("").map((letter) => {
+      return alph[letter]}).join("")
+  
+   if (!encode) {
     //set variable for new input without spaces so the length and interation is correct
     let newInput = input.split(" ").join("");
     //check if length of input is odd or even. If odd return false
-    if ((newInput.length % 2) != 0 ) {
-      return false
-    } 
+    if ((newInput.length % 2) != 0 ) return false
     //interate through input by 2 to get two digit characters
     for (let i = 0; i < newInput.length; i+=2){
       //set variable for each character plus the following
@@ -62,7 +48,7 @@ const polybiusModule = (function () {
 return result;
 }
 return { polybius,
-};
+       }
 }) ()
 
 
